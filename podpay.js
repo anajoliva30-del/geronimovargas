@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     body: JSON.stringify({
       amount: 1000,
       description: "Teste de pagamento",
-      callback_url: "https://seusite.github.io"
+      callback_url: "https://geronimovargas-ce58.vercel.app/"
     })
   });
 
