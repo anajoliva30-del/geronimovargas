@@ -2,7 +2,6 @@ import fetch from 'node-fetch';
 
 export default async function handler(req, res) {
   try {
-    // Vercel parseia JSON automaticamente em req.body
     if (req.method !== 'POST') {
       return res.status(405).json({ error: 'Método não permitido' });
     }
@@ -13,7 +12,6 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Valor ou descrição faltando' });
     }
 
-    // Chamada para a PodPay
     const podpayResponse = await fetch('https://api.podpay.com.br/v1/payments', {
       method: 'POST',
       headers: {
@@ -30,7 +28,6 @@ https://geronimovargas-ce58.vercel.app"
       })
     });
 
-    // Tenta transformar a resposta em JSON
     let data;
     try {
       data = await podpayResponse.json();
