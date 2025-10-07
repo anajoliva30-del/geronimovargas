@@ -25,7 +25,7 @@
       const amountInput = document.getElementById('amount').value;
       const description = document.getElementById('description').value;
 
-      if(!amountInput || !description){
+      if (!amountInput || !description) {
         alert("Preencha valor e descrição!");
         return;
       }
@@ -34,20 +34,26 @@
       const amount = Math.round(parseFloat(amountInput) * 100);
 
       try {
-        const response = await fetch('https://geronimovargas-ce58.vercel.app/api/podpay', {
+        const response = await fetch('
+https://geronimovargas-ce58.vercel.app', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ amount, description })
         });
 
         const data = await response.json();
-        if(data.paymentUrl){
-          window.location.href = data.paymentUrl; // redireciona para pagamento
+
+        if (data.paymentUrl) {
+          window.location.href = data.paymentUrl;
+        } else if (data.error) {
+          alert("Erro: " + data.error);
+          console.error(data);
         } else {
-          alert('Erro ao gerar pagamento');
+          alert("Erro desconhecido ao gerar pagamento.");
         }
       } catch (error) {
         alert('Erro na conexão: ' + error);
+        console.error(error);
       }
     };
   </script>
