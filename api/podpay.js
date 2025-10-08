@@ -40,6 +40,7 @@ export default async function handler(req, res) {
     try {
       data = await podpayResponse.json();
     } catch (e) {
+      // Sempre retorna JSON, mesmo que a PodPay responda HTML
       return res.status(500).json({ error: 'Resposta da PodPay não é JSON', details: await podpayResponse.text() });
     }
 
@@ -47,6 +48,7 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'Resposta da PodPay inválida', data });
     }
 
+    // Retorna para frontend ou Postman
     res.status(200).json({ paymentUrl: data.payment_url });
 
   } catch (error) {
